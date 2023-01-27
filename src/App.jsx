@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { Text } from "@mantine/core";
 import "./App.css";
+import MainPage from "./mainPage";
 
 function App() {
   return (
     <div className="App">
-      <Text size="xs" className="text-purple-600">
-        Welcome to Mantine!
-      </Text>
+      <MainPage />
     </div>
   );
 }
