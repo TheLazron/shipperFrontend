@@ -1,5 +1,5 @@
 import { Card, Text, Button, ActionIcon } from "@mantine/core";
-import { IconPencil } from "@tabler/icons";
+import { Icon360, IconPencil } from "@tabler/icons";
 
 const ShipItem = (props) => {
   return (
@@ -19,16 +19,17 @@ const ShipItem = (props) => {
         <Text className="status basis-[20%]" weight="bold">
           {props.status}
         </Text>
+        <Button
+          onClick={props.onClickHandler}
+          color="green"
+          size="xs"
+          radius="xl"
+          variant="filled"
+          className=""
+        >
+          O
+        </Button>
       </Card>
-      {/* <ActionIcon
-        color="green"
-        size="xl"
-        radius="xl"
-        variant="filled"
-        className="absolute"
-      >
-        <IconPencil />
-      </ActionIcon> */}
     </div>
   );
 };

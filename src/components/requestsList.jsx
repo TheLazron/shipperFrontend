@@ -1,21 +1,50 @@
-import { Title, List, Card, Text, Modal } from "@mantine/core";
+import {
+  Title,
+  List,
+  Card,
+  Text,
+  Modal,
+  NumberInput,
+  Button,
+} from "@mantine/core";
 import { useState } from "react";
 import RequestItem from "./requestItem";
 import ShipItem from "./shipItem";
 
 const RequestList = (props) => {
   const [opened, setOpened] = useState(false);
+  const [editOpened, setEditOpened] = useState(false);
   const openModal = () => {
     setOpened(true);
   };
+
+  const setEditModal = () => {
+    setEditOpened(true);
+  };
   return (
-    <div className="flex flex-col">
-      <Modal
-        opened={opened}
-        onClose={() => setOpened(false)}
-        title="Introduce yourself!"
-      >
-        {/* Modal content */}
+    <div className="flex flex-col gap-12">
+      <Modal opened={editOpened} onClose={() => setEditOpened(false)}>
+        <Title>Opendeds</Title>
+      </Modal>
+      <Modal opened={opened} onClose={() => setOpened(false)}>
+        <Title order={3} className="self-center">
+          Perform an action for the requested shipment
+        </Title>
+        <div className="flex mt-8">
+          <NumberInput
+            className="basis-1/2 mr-4"
+            defaultValue={0}
+            parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
+            formatter={(value) =>
+              !Number.isNaN(parseFloat(value))
+                ? `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                : "$ "
+            }
+          />
+          <Button className="basis-1/2" color="teal">
+            Propose and Accept
+          </Button>
+        </div>
       </Modal>
       <Title order={1} className="self-start">
         {props.title}
@@ -48,7 +77,7 @@ const RequestList = (props) => {
             ? props.companies.map((company, index) => {
                 return (
                   <RequestItem
-                    onClick={openModal}
+                    onClickHandler={openModal}
                     key={index}
                     index={index}
                     companyName={company.companyName}
@@ -62,6 +91,7 @@ const RequestList = (props) => {
             : props.companies.map((company, index) => {
                 return (
                   <ShipItem
+                    onClickHandler={setEditModal}
                     key={index}
                     index={index}
                     companyName={company.companyName}

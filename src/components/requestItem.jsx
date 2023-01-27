@@ -21,7 +21,7 @@ const RequestItem = (props) => {
           {props.predictedPrice}
         </Text>
         <Text className="ConfirmShipment basis-[20%]">
-          <Button color="green" onClick={props.onClick}>
+          <Button color="green" onClick={props.onClickHandler}>
             Action
           </Button>
         </Text>
