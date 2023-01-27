@@ -9,7 +9,7 @@ const companies = [
     quantity: 400,
     predictedPrice: 5000,
     shippingPrice: 7000,
-    status: "dispatched",
+    status: "Packed",
   },
   {
     id: 1,

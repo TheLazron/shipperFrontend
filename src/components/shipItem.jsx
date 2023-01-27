@@ -20,7 +20,10 @@ const ShipItem = (props) => {
           {props.status}
         </Text>
         <Button
-          onClick={props.onClickHandler}
+          onClick={() => {
+            props.onClickHandler();
+            props.onClickModalSetter();
+          }}
           color="green"
           size="xs"
           radius="xl"
