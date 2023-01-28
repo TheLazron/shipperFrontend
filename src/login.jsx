@@ -1,4 +1,5 @@
 import { useForm } from "@mantine/form";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import {
@@ -12,6 +13,7 @@ import {
 } from "@mantine/core";
 
 const LoginPage = () => {
+  const navigate = useNavigate();
   const login = async (body) => {
     const data = await axios
       .post("http://143.244.136.61:3000/admins/sign_in", body)
@@ -19,6 +21,7 @@ const LoginPage = () => {
         sessionStorage.setItem("accessToken", response.headers.authorization);
         // console.log(token);
         console.log(response.headers.authorization);
+        return response.headers.authorization;
       });
   };
   const form = useForm({
@@ -50,7 +53,11 @@ const LoginPage = () => {
                 password: values.password,
               },
             };
-            login(body);
+            login(body)
+              .then(() => {
+                navigate("/dboard");
+              })
+              .catch((err) => console.log(err));
 
             console.log(values);
           })}
