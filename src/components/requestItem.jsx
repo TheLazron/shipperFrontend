@@ -21,7 +21,13 @@ const RequestItem = (props) => {
           {props.predictedPrice}
         </Text>
         <Text className="ConfirmShipment basis-[20%]">
-          <Button color="green" onClick={props.onClickHandler}>
+          <Button
+            color="green"
+            onClick={() => {
+              props.onClickHandler();
+              return props.index;
+            }}
+          >
             Action
           </Button>
         </Text>

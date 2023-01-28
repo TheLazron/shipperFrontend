@@ -1,6 +1,5 @@
-import { Title } from "@mantine/core";
-import RequestList from "./requestsList";
 import { useEffect, useState } from "react";
+import RequestList from "./requestsList";
 import axios from "axios";
 import constants from "../../constants";
 // const companies = [
@@ -26,32 +25,34 @@ import constants from "../../constants";
 //   },
 // ];
 
-const OngoingShips = () => {
+const RequestedShips = () => {
   const [companies, setCompaniesData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      let cData = await axios.get(constants.hostUrl + "/admin/shippings", {
-        headers: {
-          Authorization: sessionStorage.getItem("accessToken"),
-        },
-      });
-      setCompaniesData([...cData]);
-      console.log("data", cData);
+      let cData = await axios.get(
+        constants.hostUrl + "/admin/shipping_requests",
+        {
+          headers: {
+            Authorization: sessionStorage.getItem("accessToken"),
+          },
+        }
+      );
+      setCompaniesData(cData.data);
+      console.log(cData);
     };
     fetchData();
   }, []);
 
   return (
-    <>
-      {/* <Title>Ongoing Shipments</Title> */}
+    <div>
       <RequestList
-        title="Ongoing Shipments"
+        title="Shipping Requests"
         companies={companies}
-        type="ongoing"
+        type="requests"
       />
-    </>
+    </div>
   );
 };
 
-export default OngoingShips;
+export default RequestedShips;

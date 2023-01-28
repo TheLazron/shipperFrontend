@@ -8,14 +8,42 @@ import {
   Button,
   Select,
 } from "@mantine/core";
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import constants from "../../constants";
 import RequestItem from "./requestItem";
 import ShipItem from "./shipItem";
+// const companies = [
+//   {
+//     id: 1,
+//     companyName: "CompanyX",
+//     source: "India",
+//     destination: "USA",
+//     quantity: 400,
+//     predictedPrice: 5000,
+//     shippingPrice: 7000,
+//     status: "Packed",
+//   },
+//   {
+//     id: 1,
+//     companyName: "CompanyZ",
+//     source: "China",
+//     destination: "Dubai",
+//     quantity: 20,
+//     predictedPrice: 6000,
+//     shippingPrice: 7000,
+//     status: "Shipped",
+//   },
+// ];
 
 const RequestList = (props) => {
   const [opened, setOpened] = useState(false);
   const [editOpened, setEditOpened] = useState(false);
   const [editModalData, setEditModalData] = useState({});
+  const [priceValue, setPriceValue] = useState(0);
+  const [value, setValue] = useState(0);
+  // const [selectValue, setSelectValue] = useState;
+  console.log("compa", props.companies);
   const openModal = () => {
     setOpened(true);
   };
@@ -24,7 +52,24 @@ const RequestList = (props) => {
     setEditOpened(true);
   };
 
-  const setModalData = () => {};
+  // const setModalData = () => {};
+
+  const acceptRequest = (id, price) => {
+    console.log("accepting...");
+    console.log(id, price);
+    axios.post(
+      constants.hostUrl + `/admin/update_shipping_status/${id}`,
+      {
+        price: price,
+        status: "accepted",
+      },
+      {
+        headers: {
+          Authorization: sessionStorage.getItem("accessToken"),
+        },
+      }
+    );
+  };
   return (
     <div className="flex flex-col gap-12">
       <Modal
@@ -62,6 +107,7 @@ const RequestList = (props) => {
           </div>
         </div>
       </Modal>
+
       <Modal opened={opened} onClose={() => setOpened(false)}>
         <Title order={3} className="self-center">
           Perform an action for the requested shipment
@@ -70,15 +116,20 @@ const RequestList = (props) => {
         <div className="flex mt-8">
           <NumberInput
             className="basis-1/2 mr-4"
-            defaultValue={0}
+            defaultValue={priceValue}
             parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
             formatter={(value) =>
               !Number.isNaN(parseFloat(value))
                 ? `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                 : "$ "
             }
+            onChange={(priceValue) => setPriceValue(priceValue)}
           />
-          <Button className="basis-1/2" color="teal">
+          <Button
+            className="basis-1/2"
+            color="teal"
+            onClick={() => acceptRequest(editModalData.id, priceValue)}
+          >
             Propose and Accept
           </Button>
         </div>
@@ -91,7 +142,7 @@ const RequestList = (props) => {
         {props.type == "requests" ? (
           <div className="flex justify-between">
             <Text className="basis-[20%]">SNo.</Text>
-            <Text className="basis-[20%]">Company Name</Text>
+            <Text className="basis-[20%]">Company Email</Text>
             <Text className="basis-[20%]">Source</Text>
             <Text className="basis-[20%]">Destination</Text>
             <Text className="basis-[20%]">Quantity</Text>
@@ -112,16 +163,22 @@ const RequestList = (props) => {
         <List>
           {props.type == "requests"
             ? props.companies.map((company, index) => {
+                console.log("aagya", company);
                 return (
                   <RequestItem
-                    onClickHandler={openModal}
+                    onClickHandler={() => {
+                      console.log("clicked");
+                      openModal();
+                      setEditModalData({ id: company.id });
+                      console.log(editModalData);
+                    }}
                     key={index}
                     index={index}
-                    companyName={company.companyName}
+                    companyName={company.business.email}
                     source={company.source}
                     destination={company.destination}
                     quantity={company.quantity}
-                    predictedPrice={company.predictedPrice}
+                    predictedPrice={company.predicted_price}
                   />
                 );
               })
@@ -138,7 +195,7 @@ const RequestList = (props) => {
                     }}
                     key={index}
                     index={index}
-                    companyName={company.companyName}
+                    companyName={company.business}
                     source={company.source}
                     destination={company.destination}
                     quantity={company.quantity}

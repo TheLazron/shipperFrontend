@@ -1,27 +1,27 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import {
-  BrowserRouter,
-  BrowserRouter as Router,
-  Route,
-  Routes,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { MantineProvider, Text } from "@mantine/core";
-import App from "./App";
+import Db from "./db";
 import "./index.css";
 import MainPage from "./mainPage";
 import OngoingShips from "./components/ongoingShips";
+import LoginPage from "./login";
+import RequestList from "./components/requestsList";
+import RequestedShips from "./components/requestedShips";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <MantineProvider withGlobalStyles withNormalizeCSS>
-      {/* <BrowserRouter>
+      <Router>
         <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/ongoing-ships" element={<OngoingShips />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/dboard/ongoing" element={<Db />} />
+          <Route path="/dboard/requests" element={<Db />} />
+          <Route path="/dboard" element={<Db />} />
+          {/* <Route path="/dboard/maplocations" element={<Db />} /> */}
         </Routes>
-      </BrowserRouter> */}
-      <MainPage />
+      </Router>
     </MantineProvider>
   </React.StrictMode>
 );
