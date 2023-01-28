@@ -36,15 +36,13 @@ const OngoingShips = () => {
           Authorization: sessionStorage.getItem("accessToken"),
         },
       });
-      setCompaniesData([...cData]);
-      console.log("data", cData);
+      setCompaniesData(cData.data);
     };
     fetchData();
   }, []);
 
   return (
     <>
-      {/* <Title>Ongoing Shipments</Title> */}
       <RequestList
         title="Ongoing Shipments"
         companies={companies}

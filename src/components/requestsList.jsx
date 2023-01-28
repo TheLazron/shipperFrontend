@@ -195,7 +195,7 @@ const RequestList = (props) => {
                     }}
                     key={index}
                     index={index}
-                    companyName={company.business}
+                    companyName={company.business.email}
                     source={company.source}
                     destination={company.destination}
                     quantity={company.quantity}
