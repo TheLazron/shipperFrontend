@@ -70,6 +70,23 @@ const RequestList = (props) => {
       }
     );
   };
+
+  const updateRequest = (id, price, status) => {
+    console.log("updateRequest", editModalData);
+    console.log("updateRequest", id, price, status);
+    axios.post(
+      constants.hostUrl + `/admin/update_shipping_status/${id}`,
+      {
+        price: price,
+        status: status,
+      },
+      {
+        headers: {
+          Authorization: sessionStorage.getItem("accessToken"),
+        },
+      }
+    );
+  };
   return (
     <div className="flex flex-col gap-12">
       <Modal
@@ -83,6 +100,9 @@ const RequestList = (props) => {
             <Text>Update Shipping Price</Text>
             <NumberInput
               className="basis-1/2 mr-4"
+              onChange={(value) => {
+                setEditModalData({ ...editModalData, shippingPrice: value });
+              }}
               defaultValue={editModalData.shippingPrice}
               parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
               formatter={(value) =>
@@ -96,6 +116,9 @@ const RequestList = (props) => {
             <Text>Update Shipping Status</Text>
             <Select
               placeholder="Pick one"
+              onChange={(value) =>
+                setEditModalData({ ...editModalData, status: value })
+              }
               defaultValue={editModalData.status}
               data={[
                 { value: "Packed", label: "Packed" },
@@ -106,6 +129,19 @@ const RequestList = (props) => {
             />
           </div>
         </div>
+        <Button
+          className="basis-1/2 mt-8"
+          color="teal"
+          onClick={() =>
+            updateRequest(
+              editModalData.id,
+              editModalData.shippingPrice,
+              editModalData.status
+            )
+          }
+        >
+          Propose and Accept
+        </Button>
       </Modal>
 
       <Modal opened={opened} onClose={() => setOpened(false)}>
@@ -173,7 +209,7 @@ const RequestList = (props) => {
                       console.log(editModalData);
                     }}
                     key={index}
-                    index={index}
+                    index={company.id}
                     companyName={company.business.email}
                     source={company.source}
                     destination={company.destination}
@@ -183,23 +219,25 @@ const RequestList = (props) => {
                 );
               })
             : props.companies.map((company, index) => {
+                console.log("loop", company.id);
                 return (
                   <ShipItem
-                    onClickHandler={setEditModal}
-                    onClickModalSetter={() => {
+                    onClickHandler={() => {
+                      setEditModal();
                       setEditModalData({
-                        shippingPrice: company.shippingPrice,
+                        id: company.id,
+                        shippingPrice: company.price,
                         status: company.status,
                       });
                       console.log(editModalData);
                     }}
                     key={index}
-                    index={index}
+                    index={company.id}
                     companyName={company.business.email}
                     source={company.source}
                     destination={company.destination}
                     quantity={company.quantity}
-                    shippingPrice={company.shippingPrice}
+                    shippingPrice={company.price}
                     status={company.status}
                   />
                 );

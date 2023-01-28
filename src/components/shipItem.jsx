@@ -22,7 +22,6 @@ const ShipItem = (props) => {
         <Button
           onClick={() => {
             props.onClickHandler();
-            props.onClickModalSetter();
           }}
           color="green"
           size="xs"
