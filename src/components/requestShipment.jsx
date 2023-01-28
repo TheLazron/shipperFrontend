@@ -36,6 +36,10 @@ const RequestShipment = () => {
   const [loading, setLoading] = useState(false);
 
   const [shipping, SetShipping] = useState({});
+  const [warehouses, setWarehouses] = useState([]);
+  const [warehouseData, setWarehouseData] = useState({});
+  const [warehouseNames, setWarehouseNames] = useState([]);
+  const [toWarehouseId, setToWarehouseId] = useState(null);
 
   useEffect(() => {
     let otherCountry = oneSelected === "source" ? source : destination;
@@ -93,6 +97,32 @@ const RequestShipment = () => {
       console.log("categories", categories);
     };
     fetchCategories();
+
+    const fetchWarehouses = async () => {
+      const warehouses = await axios.get(constants.hostUrl + "/warehouses", {
+        headers: {
+          Authorization: sessionStorage.getItem("accessToken"),
+        },
+      });
+      setWarehouses(warehouses.data);
+      console.log(warehouses.data)
+      const warehouseNameIdMapping = warehouses.data.map((warehouse) => {
+        return {
+          id: warehouse.id,
+          name: warehouse.name,
+        };
+      });
+      setWarehouseData(warehouseNameIdMapping);
+      //set warehouse names
+      const warehouseNames = warehouses.data.map((warehouse) => {
+        return warehouse.name;
+      });
+      setWarehouseNames(warehouseNames);
+    };
+    fetchWarehouses();
+
+    // get list of object {warehouse_id: warehouse_name}
+
   }, []);
 
   const form = useForm({
@@ -127,10 +157,9 @@ const RequestShipment = () => {
                     source: source,
                     destination: destination,
                     predicted_price: price,
-                    
 
-                    // id: values.id,
-                  },
+                    // id: values.
+                  }
                 },
                 {
                   headers: {
@@ -198,7 +227,8 @@ const RequestShipment = () => {
             placeholder="Select a Type"
             searchable
             nothingFound="No options"
-            data={["to-warehouse", "to-customer"]}
+            // data={["to-warehouse", "to-customer"]}
+            data={[{label:"to-warehouse", value:"to-warehouse", disabled:true}, {label:"to-customer", value:"to-customer"}]}
             withAsterisk
             onChange={(typeSelect) => {
               SetShipping(typeSelect);
@@ -225,10 +255,12 @@ const RequestShipment = () => {
             placeholder="Select Destination Country"
             searchable
             nothingFound="No options"
-            data={constants.countries}
+            data= {constants.countries}
+            
             withAsterisk
             onChange={(destiSelect) => {
               setDestination(destiSelect);
+
               console.log(destiSelect);
               setOneSelected("destination");
             }}

@@ -10,11 +10,14 @@ import {
   BackgroundImage,
   Center,
 } from "@mantine/core";
+import { Link } from "react-router-dom";
 
-
+// import SignUp from "./components/signUp";
+import SignIn from "./components/signIn";
 import { MantineProvider } from "@mantine/core";
 import "./index.css";
 import Artboard from "./assets/Artboard6.png";
+import TrackShipment from "./TrackShipment";
 
 function Landing() {
   return (
@@ -27,9 +30,11 @@ function Landing() {
             <Text
               className="text-right items-center font-Poppins text-3Zsm text-white" display="flex"
             >
-            <Button color="dark" size="md" radius="lg" className=" hover:bg-grey bg-best">
+              <Link to="/track" element={TrackShipment}>
+            <Button color="dark" size="md" radius="lg" className=" hover:bg-grey bg-best" >
               Track your shipment
             </Button>
+              </Link>
               
             </Text>
        
@@ -66,9 +71,11 @@ function Landing() {
               mollitia, molestiae quas vel sint commodi repudiandae consequuntur
               voluptatum laborum.
             </Text>
+            <Link to ="/signin" element={SignIn}>
             <Button color="dark" radius="xl" size="lg" className="bg-best2w" >
               Get Started
             </Button>
+            </Link>
             </Flex>
           </BackgroundImage>
         </Box>

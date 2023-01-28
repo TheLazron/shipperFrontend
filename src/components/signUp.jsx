@@ -21,8 +21,8 @@ const  SignUp=()=> {
   });
   return (
     <div className="App">
-      <Text className="text-2xl">
-        SignUp{" "}
+      <Text className="text-2xl pt-5" >
+        Sign Up Your Business{" "}
       </Text>
       <Box sx={{ maxWidth: 500 }} mx="auto" className="p-10">
       <form onSubmit={form.onSubmit((values) => {

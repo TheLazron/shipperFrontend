@@ -18,7 +18,7 @@ import SignIn from "./components/signIn";
 import InventoryManagement from "./components/inventory";
 import Admin from "./components/adminSignin";
 import Landing from "./landing";
-
+import TrackShipment from "./TrackShipment";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -33,6 +33,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <Route path="/warehouse-new" element={<CreateWarehouse />} />
             <Route path="/inventory-mgmt" element={<InventoryManagement />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/track" element={<TrackShipment />} />
           </Routes>
         </BrowserRouter>
       </TokenProvider>
