@@ -18,22 +18,24 @@ import InventoryManagement from "./components/inventory";
 import Admin from "./components/adminSignin";
 import Landing from "./landing";
 import TrackShipment from "./TrackShipment";
+import NavShell from "./components/NavShell";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <MantineProvider withGlobalStyles withNormalizeCSS>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Landing />} />
-            <Route path="/signin" element={<SignIn />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/request" element={<RequestShipment />} />
-            <Route path="/warehouse-new" element={<CreateWarehouse />} />
-            <Route path="/inventory-mgmt" element={<InventoryManagement />} />
-            <Route path="/admin" element={<Admin />} />
-            <Route path="/track" element={<TrackShipment />} />
-          </Routes>
-        </BrowserRouter>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/dboard/request" element={<NavShell />} />
+          <Route path="/dboard/warehouse-new" element={<NavShell />} />
+          <Route path="/dboard/inventory-mgmt" element={<NavShell />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/track" element={<TrackShipment />} />
+          <Route path="/dboard" element={<NavShell />} />
+        </Routes>
+      </BrowserRouter>
     </MantineProvider>
   </React.StrictMode>
 );
