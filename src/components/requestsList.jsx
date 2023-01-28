@@ -13,28 +13,6 @@ import { useEffect, useState } from "react";
 import constants from "../../constants";
 import RequestItem from "./requestItem";
 import ShipItem from "./shipItem";
-// const companies = [
-//   {
-//     id: 1,
-//     companyName: "CompanyX",
-//     source: "India",
-//     destination: "USA",
-//     quantity: 400,
-//     predictedPrice: 5000,
-//     shippingPrice: 7000,
-//     status: "Packed",
-//   },
-//   {
-//     id: 1,
-//     companyName: "CompanyZ",
-//     source: "China",
-//     destination: "Dubai",
-//     quantity: 20,
-//     predictedPrice: 6000,
-//     shippingPrice: 7000,
-//     status: "Shipped",
-//   },
-// ];
 
 const RequestList = (props) => {
   const [opened, setOpened] = useState(false);
@@ -42,7 +20,7 @@ const RequestList = (props) => {
   const [editModalData, setEditModalData] = useState({});
   const [priceValue, setPriceValue] = useState(0);
   const [value, setValue] = useState(0);
-  // const [selectValue, setSelectValue] = useState;
+
   console.log("compa", props.companies);
   const openModal = () => {
     setOpened(true);
@@ -121,8 +99,7 @@ const RequestList = (props) => {
               }
               defaultValue={editModalData.status}
               data={[
-                { value: "Packed", label: "Packed" },
-                { val: "Dispatched", label: "Dispatched" },
+                { value: "Accepted", label: "Accpeted" },
                 { value: "Shipped", label: "Shipped" },
                 { value: "Delivered", label: "Delivered" },
               ]}
@@ -177,7 +154,7 @@ const RequestList = (props) => {
       <Card shadow="md" radius="lg">
         {props.type == "requests" ? (
           <div className="flex justify-between">
-            <Text className="basis-[20%]">SNo.</Text>
+            <Text className="basis-[20%]">ID</Text>
             <Text className="basis-[20%]">Company Email</Text>
             <Text className="basis-[20%]">Source</Text>
             <Text className="basis-[20%]">Destination</Text>
@@ -187,7 +164,7 @@ const RequestList = (props) => {
           </div>
         ) : (
           <div className="flex justify-between">
-            <Text className="basis-[20%]">SNo.</Text>
+            <Text className="basis-[20%]">ID</Text>
             <Text className="basis-[20%]">Company Name</Text>
             <Text className="basis-[20%]">Source</Text>
             <Text className="basis-[20%]">Destination</Text>

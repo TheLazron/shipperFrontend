@@ -13,7 +13,7 @@ import {
 const MapMarkings = () => {
   return (
     <MapContainer
-      center={[currentLocation.latitude, currentLocation.longitude]}
+      center={[32.392391, 75.510246]}
       zoom={18}
       scrollWheelZoom={false}
       className="w-full h-2/3 rounded-3xl"
@@ -22,25 +22,15 @@ const MapMarkings = () => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <ReactLeafletDriftMarker
+      {/* <ReactLeafletDriftMarker
         ref={markerRef}
         draggable
-        position={[currentLocation.latitude, currentLocation.longitude]}
+        position={[0, 0]}
         duration={1000}
         keepAtCenter
       >
         <Popup>Popup</Popup>
-      </ReactLeafletDriftMarker>
-      <Circle
-        ref={circleRef}
-        center={{
-          lat: circleCenter.lat,
-          lng: circleCenter.lng,
-        }}
-        color="green"
-        radius={20}
-        fillOpacity={0.5}
-      ></Circle>
+      </ReactLeafletDriftMarker> */}
     </MapContainer>
   );
 };

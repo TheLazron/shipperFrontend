@@ -18,7 +18,7 @@ const RequestItem = (props) => {
         </Text>
         <Text className="quantity basis-[20%]">{props.quantity}</Text>
         <Text className="predictedPrice basis-[20%]">
-          {props.predictedPrice}
+          ${props.predictedPrice}
         </Text>
         <Text className="ConfirmShipment basis-[20%]">
           <Button

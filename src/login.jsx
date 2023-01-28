@@ -33,14 +33,14 @@ const LoginPage = () => {
   });
 
   return (
-    <div className="flex justify-center flex-col items-center h-1/2">
-      <Title order={1} className="mb-12">
+    <div className="flex flex-col w-screen h-screen self-center justify-center items-center bg-best ">
+      <Title color="white" order={1} className="mb-12 text-white">
         Admin Login
       </Title>
       <Card
         radius="lg"
         shadow="md"
-        className="w-1/2 flex justify-around mt-1/3 flex-col items-center"
+        className="w-1/4 p-18 pt-12 flex justify-around flex-col items-center"
       >
         <form
           onSubmit={form.onSubmit((values) => {
@@ -69,7 +69,9 @@ const LoginPage = () => {
           />
 
           <Group position="right" mt="md">
-            <Button type="submit">Submit</Button>
+            <Button type="submit" className="bg-best">
+              Submit
+            </Button>
           </Group>
         </form>
       </Card>
