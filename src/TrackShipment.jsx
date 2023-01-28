@@ -81,6 +81,8 @@ console.log(post);
     </>
     
       {
+        
+
         // button to open modal
       <Flex direction="column" className="px-10 pt-40" align="center" justify="flex-end" wrap="wrap" gap="md">
       <Button color="dark" className="bg-best mb-10" onClick={() => setOpened(true)}>Enter Tracking ID</Button>
@@ -104,6 +106,11 @@ console.log(post);
         
       </Timeline.Item>
     </Timeline>
+    <Box padding="0px" align="center" className="mt-20 text-xs">
+    <Text color="dimmed" size="sm">Request generated at {post.created_at}</Text>
+    <Text size="sm" weight="bold">Destination: {post.destination}</Text>
+    <Text color="dimmed" size="sm">Last Updated: {post.created_at}</Text>
+    </Box>
     </Flex>
       }
       
