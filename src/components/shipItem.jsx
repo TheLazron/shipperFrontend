@@ -27,7 +27,6 @@ const ShipItem = (props) => {
           size="xs"
           radius="xl"
           variant="filled"
-          className=""
         >
           O
         </Button>

@@ -6,6 +6,7 @@ import constants from "../constants";
 
 const MainPage = () => {
   const [pendingRequests, setPendingRequests] = useState([]);
+  const [companies, setCompanies] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,7 +23,17 @@ const MainPage = () => {
       setPendingRequests(shippings.data);
       console.log(shippings);
     };
+
+    const fetchData2 = async () => {
+      let cData = await axios.get(constants.hostUrl + "/admin/shippings", {
+        headers: {
+          Authorization: sessionStorage.getItem("accessToken"),
+        },
+      });
+      setCompanies(cData.data);
+    };
     fetchData();
+    fetchData2();
   }, []);
 
   return (
@@ -33,7 +44,12 @@ const MainPage = () => {
         companies={pendingRequests}
       />
       <div className="my-12"></div>
-      <RequestList title="Current Ships" type="ships" companies={companies} />
+      {/* <RequestList title="Current Ships" type="ships" companies={companies} /> */}
+      <RequestList
+        title="Ongoing Shipments"
+        companies={companies}
+        type="ongoing"
+      />
     </>
   );
 };

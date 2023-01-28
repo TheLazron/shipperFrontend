@@ -18,8 +18,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/login" element={<LoginPage />} />
           <Route path="/dboard/ongoing" element={<Db />} />
           <Route path="/dboard/requests" element={<Db />} />
-          <Route path="/dboard/trackShipments" element={<Db />} />
-          <Route path="/dboard" element={<Db />} />
+          <Route path="/dboard/shipmentLocations" element={<Db />} />
+          <Route path="/dboard/" element={<Db />} />
           {/* <Route path="/dboard/maplocations" element={<Db />} /> */}
         </Routes>
       </Router>

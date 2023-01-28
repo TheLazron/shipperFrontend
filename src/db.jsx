@@ -17,7 +17,7 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import RequestedShips from "./components/requestedShips";
-import MapMarkings from "./components/mapMarkings";
+import ShipmentLocations from "./components/shipmentLocations";
 
 const Db = () => {
   const [opened, setOpened] = useState(false);
@@ -42,9 +42,12 @@ const Db = () => {
                   Ongoing Ships
                 </Button>
               </Link>
-              <Link to="/dboard/trackShipments" element={<mapShipments />}>
+              <Link
+                to="/dboard/shipmentLocations"
+                element={<ShipmentLocations />}
+              >
                 <Button radius="xl" size="lg" className="bg-best">
-                  Map Shipments
+                  Shipment Locations
                 </Button>
               </Link>
             </List>
@@ -62,19 +65,18 @@ const Db = () => {
           </Header>
         }
       >
-        {location.pathname == "/dboard/d" ? (
+        {location.pathname == "/dboard/" ? (
           <MainPage />
         ) : location.pathname == "/dboard/ongoing" ? (
           <OngoingShips />
         ) : location.pathname == "/dboard/requests" ? (
           <RequestedShips />
-        ) : location.pathname == "/dboard/trackShipments" ? (
-          <MapMarkings />
+        ) : location.pathname == "/dboard/shipmentLocations" ? (
+          <ShipmentLocations />
         ) : (
           <MainPage />
         )}
       </AppShell>
-      );
     </div>
   );
 };

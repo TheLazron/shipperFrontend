@@ -7,6 +7,7 @@ import {
   NumberInput,
   Button,
   Select,
+  TextInput,
 } from "@mantine/core";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -18,8 +19,10 @@ const RequestList = (props) => {
   const [opened, setOpened] = useState(false);
   const [editOpened, setEditOpened] = useState(false);
   const [editModalData, setEditModalData] = useState({});
+  const [locationValue, setLocationValue] = useState("");
   const [priceValue, setPriceValue] = useState(0);
   const [value, setValue] = useState(0);
+  const [locationModalOpen, setLocationModalOpen] = useState(false);
 
   console.log("compa", props.companies);
   const openModal = () => {
@@ -65,6 +68,16 @@ const RequestList = (props) => {
       }
     );
   };
+
+  const updateLocation = (id, location) => {
+    console.log(id, location);
+    axios.post(
+      constants.hostUrl +
+        `/admin/update_shipping_location/${id}?location=${location}`,
+      {},
+      { headers: { Authorization: sessionStorage.getItem("accessToken") } }
+    );
+  };
   return (
     <div className="flex flex-col gap-12">
       <Modal
@@ -99,9 +112,9 @@ const RequestList = (props) => {
               }
               defaultValue={editModalData.status}
               data={[
-                { value: "Accepted", label: "Accpeted" },
-                { value: "Shipped", label: "Shipped" },
-                { value: "Delivered", label: "Delivered" },
+                { value: "accepted", label: "accepted" },
+                { value: "shipped", label: "shipped" },
+                { value: "delivered", label: "delivered" },
               ]}
             />
           </div>
@@ -117,7 +130,7 @@ const RequestList = (props) => {
             )
           }
         >
-          Propose and Accept
+          Edit
         </Button>
       </Modal>
 
@@ -147,6 +160,32 @@ const RequestList = (props) => {
           </Button>
         </div>
       </Modal>
+
+      <Modal
+        opened={locationModalOpen}
+        onClose={() => setLocationModalOpen(false)}
+      >
+        <Title order={3} className="self-center">
+          Update Location for current shipment
+        </Title>
+
+        <TextInput
+          placeholder="Location"
+          radius="md"
+          onChange={(event) => {
+            console.log("text", value);
+            setLocationValue(event.target.value);
+          }}
+        />
+        <Button
+          className="basis-1/2"
+          color="teal"
+          onClick={() => updateLocation(editModalData.id, locationValue)}
+        >
+          Update Location
+        </Button>
+      </Modal>
+
       <Title order={1} className="self-start">
         {props.title}
       </Title>
@@ -161,6 +200,16 @@ const RequestList = (props) => {
             <Text className="basis-[20%]">Quantity</Text>
             <Text className="basis-[20%]">Predicted Price</Text>
             <Text className="basis-[20%]">Action</Text>
+          </div>
+        ) : props.type == "location" ? (
+          <div className="flex justify-between">
+            <Text className="basis-[20%]">ID</Text>
+            <Text className="basis-[20%]">Company Name</Text>
+            <Text className="basis-[20%]">Source</Text>
+            <Text className="basis-[20%]">Location</Text>
+            <Text className="basis-[20%]">Quantity</Text>
+            <Text className="basis-[20%]">Shipping Price</Text>
+            <Text className="basis-[20%]">Status</Text>
           </div>
         ) : (
           <div className="flex justify-between">
@@ -191,6 +240,27 @@ const RequestList = (props) => {
                     source={company.source}
                     destination={company.destination}
                     quantity={company.quantity}
+                    predictedPrice={company.predicted_price}
+                  />
+                );
+              })
+            : props.type == "location"
+            ? props.companies.map((company, index) => {
+                console.log("aagya", company);
+                return (
+                  <RequestItem
+                    onClickHandler={() => {
+                      console.log("clicked");
+                      setLocationModalOpen(true);
+                      setEditModalData({ id: company.id });
+                      console.log(editModalData);
+                    }}
+                    key={index}
+                    index={company.id}
+                    companyName={company.business.email}
+                    source={company.source}
+                    destination={company.location}
+                    // destination={company.destination}
                     predictedPrice={company.predicted_price}
                   />
                 );
