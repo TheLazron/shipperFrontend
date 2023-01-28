@@ -152,7 +152,7 @@ const RequestShipment = () => {
                     quantity: form.values.quantity,
                     category_id: categoryId,
                     status: "pending",
-                    shipping_type: values.shipping_type,
+                    shipping_type: "to_customer",
                     item_id: ItemId,
                     source: source,
                     destination: destination,
@@ -222,19 +222,7 @@ const RequestShipment = () => {
             onChange={(value) => setQuantity(value)}
             {...form.getInputProps("quantity")}
           />
-          <Select
-            label="Type of Shipment"
-            placeholder="Select a Type"
-            searchable
-            nothingFound="No options"
-            // data={["to-warehouse", "to-customer"]}
-            data={[{label:"to-warehouse", value:"to-warehouse", disabled:true}, {label:"to-customer", value:"to-customer"}]}
-            withAsterisk
-            onChange={(typeSelect) => {
-              SetShipping(typeSelect);
-            }}
-            value={shipping}
-          />
+       
           <Select
             label="Source"
             placeholder="Select Source Country"

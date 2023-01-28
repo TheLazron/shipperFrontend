@@ -10,6 +10,9 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import axios from "axios";
+import { Link } from "react-router-dom";
+
+import RequestShipment from "./requestShipment";
 
 import constants from "../../constants";
 
@@ -58,9 +61,12 @@ const SignIn = () => {
             {...form.getInputProps("password")}
           />
           <Group position="center" className="pt-3">
+            <Link to = "/request" element="RequestShipment">
             <Button type="submit" className="">
               Submit
             </Button>
+            
+            </Link>
           </Group>
         </form>
       </Box>

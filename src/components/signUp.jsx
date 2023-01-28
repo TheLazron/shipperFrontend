@@ -4,10 +4,8 @@ import { useForm } from '@mantine/form';
 import axios from 'axios';
 
 import constants from "../../constants";
-import TokenContext from "../contexts/tokenContext";
 
 const  SignUp=()=> {   
-    const { token, setTokenValue } = useContext(TokenContext);
 
 
   const form = useForm({

@@ -11,7 +11,6 @@ import {
 import App from "./App";
 import "./index.css";
 import SignUp from "./components/signUp";
-import { TokenProvider } from "./contexts/TokenContext";
 import RequestShipment from "./components/requestShipment";
 import CreateWarehouse from "./components/CreateWarehouse";
 import SignIn from "./components/signIn";
@@ -23,7 +22,6 @@ import TrackShipment from "./TrackShipment";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <MantineProvider withGlobalStyles withNormalizeCSS>
-      <TokenProvider>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Landing />} />
@@ -36,7 +34,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <Route path="/track" element={<TrackShipment />} />
           </Routes>
         </BrowserRouter>
-      </TokenProvider>
     </MantineProvider>
   </React.StrictMode>
 );

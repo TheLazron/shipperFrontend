@@ -5,8 +5,6 @@ import axios from 'axios';
 
 import constants from "../../constants";
 
-
-
 const  Admin=()=> {
 
   const form = useForm({
